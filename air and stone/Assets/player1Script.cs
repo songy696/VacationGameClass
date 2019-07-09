@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class player2Script : MonoBehaviour
+public class player1Script : MonoBehaviour
 {
     public float speed;
 
@@ -10,6 +10,7 @@ public class player2Script : MonoBehaviour
 
     Rigidbody2D rb2d;
 
+    bool isJump;
 
     void Start()
     {
@@ -19,24 +20,29 @@ public class player2Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
     {
-        float xHorizontal = Input.GetAxis("Horizontal");
+        float xHorizontal = Input.GetAxis("Horizontal2");
 
-        float xVertical = Input.GetAxis("Vertical");
+        float xVertical = Input.GetAxis("Vertical2");
 
         Vector2 g = new Vector2(xHorizontal, xVertical);
 
         rb2d.AddForce(g * speed);
 
-        if (Input.GetButtonDown("Jump3"))
+        if (Input.GetButtonDown("Jump2"))
         {
             rb2d.AddForce(new Vector3(0, jumpForce, 0));
 
         }
 
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 }
