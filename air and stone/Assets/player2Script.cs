@@ -26,9 +26,7 @@ public class player2Script : MonoBehaviour
     {
         float xHorizontal = Input.GetAxis("Horizontal");
 
-        float xVertical = Input.GetAxis("Vertical");
-
-        Vector2 g = new Vector2(xHorizontal, xVertical);
+        Vector2 g = new Vector2(xHorizontal, 0);
 
         rb2d.AddForce(g * speed);
 
