@@ -10,10 +10,13 @@ public class player2Script : MonoBehaviour
 
     Rigidbody2D rb2d;
 
+    bool isJump;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+
+        isJump = false;
     }
 
     // Update is called once per frame
@@ -26,15 +29,24 @@ public class player2Script : MonoBehaviour
     {
         float xHorizontal = Input.GetAxis("Horizontal");
 
-        Vector2 g = new Vector2(xHorizontal, 0);
+        Vector2 g = new Vector2(xHorizontal * speed, rb2d.velocity.y);
 
-        rb2d.AddForce(g * speed);
+        rb2d.velocity = g;
 
-        if (Input.GetButtonDown("Jump3"))
+        if (Input.GetButtonDown("Jump3") && isJump)
         {
+            isJump = false;
             rb2d.AddForce(new Vector3(0, jumpForce, 0));
-
         }
 
+     
+
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground")) {
+            isJump = true;
+        }
     }
 }

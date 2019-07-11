@@ -7,9 +7,9 @@ public class player1Script : MonoBehaviour
 {
     public float speed;
 
-    public LayerMask groundLayer;
-    public Transform feet;
-    public Transform groundCheck;
+    //public LayerMask groundLayer;
+    //public Transform feet;
+    //public Transform groundCheck;
 
     public float jumpForce;
 
@@ -22,6 +22,7 @@ public class player1Script : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
 
         isJump = false;
+
     }
 
     // Update is called once per frame
@@ -36,7 +37,7 @@ public class player1Script : MonoBehaviour
         float xHorizontal = Input.GetAxis("Horizontal2");
         //float xVertical = Input.GetAxis("Vertical2");
 
-        //speed goes in here with horizontal movment instead of the multiplying rb2d.velocity = movement * speed; here cause it creates the bug that will slows down the jump force
+        //you put the speed variable here, with the horizontal movment, instead of the multiplying rb2d.velocity = movement * speed; (at the bottom) cause it creates the bug
         Vector2 movement = new Vector2(xHorizontal* speed, rb2d.velocity.y);
 
         // for the horizontal movement velocity works better than AddForce
@@ -49,12 +50,28 @@ public class player1Script : MonoBehaviour
             rb2d.AddForce(new Vector3(0, jumpForce, 0));
         }
 
-        if (rb2d.velocity.y< 0)
+        //this creates the floaty feeling while falling down
+        if (rb2d.velocity.y < 0)
         {
             Physics2D.gravity = new Vector2(0, -1f);
+            
+        }
+
+        // changes the horizontal movement speed slow while in the air
+        if (rb2d.velocity.y < 0 && isJump == false)
+        {
             speed = 2.5f;
         }
-        
+        else {
+            speed = 10f;
+        }
+
+        if (rb2d.velocity.y > 0 && isJump == false) {
+            //yield WaitForSecond(0.25);
+            speed = 0f;
+        }
+
+
 
     }
 
@@ -65,6 +82,13 @@ public class player1Script : MonoBehaviour
             //Debug.LogWarning("ground");
             
             isJump = true;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Knife")) {
+            gameObject.SetActive(false);
         }
     }
 }
