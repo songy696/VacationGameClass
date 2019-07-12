@@ -29,7 +29,7 @@ public class Falling : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) {
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Player2")) {
             touched = true;
             StartCoroutine(Fall());
         }
@@ -38,5 +38,21 @@ public class Falling : MonoBehaviour
     IEnumerator Fall() {
         yield return new WaitForSeconds(fallDelay);
         GetComponent<Rigidbody2D>().isKinematic = false;
+    }
+}
+
+class Regenerating : MonoBehaviour
+{
+    public Falling falling;
+    
+    public flaot x;
+    public flaot y;
+    
+    void Start() {
+        Invoke(SpawnObject, 1);
+    }
+    
+    void SpawnObject(){
+        Instantiate(falling.Fall, new Vecotr2(x, y), Quaternion.identity);
     }
 }
