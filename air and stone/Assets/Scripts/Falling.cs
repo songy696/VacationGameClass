@@ -10,6 +10,8 @@ public class Falling : MonoBehaviour
     public float fallDelay = 2.0f;
 
     bool touched = false;
+    
+    bool showing;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,10 @@ public class Falling : MonoBehaviour
     IEnumerator Fall() {
         yield return new WaitForSeconds(fallDelay);
         GetComponent<Rigidbody2D>().isKinematic = false;
+    }
+    
+    void Appear(bool show){
+        showing = show;
     }
 }
 
