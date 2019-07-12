@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public float Speed;
     public float Tilt;
 
+    public Transform BoltPos;
+    public GameObject BoltPrefab;
+
     public float MinX;
     public float MaxX;
     public float MinZ;
@@ -32,5 +35,11 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, MinX, MaxX),
                                           0,
                                          Mathf.Clamp(transform.position.z, MinZ, MaxZ));
+
+        if (Input.GetButton("Fire1")) {
+            GameObject newBolt = Instantiate(BoltPrefab);
+            newBolt.transform.position = BoltPos.position;
+            //BoltPos.localPosition = what you can use for something that Idontknow... perhaps it advantages something to do with positional staff
+        }
     }
 }

@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 689732724}
   - component: {fileID: 689732728}
   m_Layer: 0
-  m_Name: character1
+  m_Name: Lasagna Pasta
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,10 +235,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2.5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3.78
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -326,7 +326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689732723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.7032895, y: 0, z: 0}
+  m_LocalPosition: {x: 3.15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -344,8 +344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5988f08239b1c4eab02d32a68c5dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  jumpForce: 150
+  speed: 4
+  jumpForce: 2500
 --- !u!1 &742726872
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +360,7 @@ GameObject:
   m_Layer: 0
   m_Name: Obstacle System
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -377,7 +377,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.19903004, y: -2.4049387}
+  m_Offset: {x: 0.11938238, y: -2.6279507}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -388,7 +388,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9288065, y: 5.8098774}
+  m_Size: {x: 2.5341253, y: 5.3638535}
   m_EdgeRadius: 0
 --- !u!114 &742726874
 MonoBehaviour:
@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbfede818892cf49b592a79e364becb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knife: {fileID: 0}
+  knife: {fileID: 1488020306}
 --- !u!4 &742726875
 Transform:
   m_ObjectHideFlags: 0
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 987972099}
   - component: {fileID: 987972104}
   m_Layer: 0
-  m_Name: character2
+  m_Name: Tomato
   m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,8 +450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc50aa0e849b354996e46cafcbe85d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jumpForce: 250
+  speed: 11
+  jumpForce: 800
 --- !u!58 &987972100
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -480,10 +480,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1.3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 2.6
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -545,7 +545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987972098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.666541, y: 0, z: 0}
+  m_LocalPosition: {x: -4.21, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 1087497504}
   m_Layer: 0
   m_Name: falling platforms
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -699,7 +699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087497499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.13, y: -0.86, z: 0}
+  m_LocalPosition: {x: 16.12, y: -0.86, z: 0}
   m_LocalScale: {x: 5.5, y: 0.475, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -717,6 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b42ad5feffd5e6d46b4339a53df3373a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallDelay: 2
 --- !u!50 &1087497505
 Rigidbody2D:
   serializedVersion: 4
@@ -748,8 +749,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1488020308}
   - component: {fileID: 1488020307}
-  - component: {fileID: 1488020306}
+  - component: {fileID: 1488020310}
   - component: {fileID: 1488020309}
+  - component: {fileID: 1488020306}
   m_Layer: 0
   m_Name: obstacles
   m_TagString: Knife
@@ -769,6 +771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d604818da37c04095ea148e951c6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upSpeed: 5
+  downSpeed: 7
   startPoint: 0.62
   endPoint: -2.93
 --- !u!212 &1488020307
@@ -827,7 +831,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488020305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.35, y: 0.62, z: 0}
+  m_LocalPosition: {x: 7.72, y: 0.62, z: 0}
   m_LocalScale: {x: 2.5875, y: 1.725, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -843,7 +847,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.012819767, y: 0.009615123}
@@ -859,6 +863,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9743602, y: 0.98076916}
   m_EdgeRadius: 0
+--- !u!50 &1488020310
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488020305}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1965977442
 GameObject:
   m_ObjectHideFlags: 0
