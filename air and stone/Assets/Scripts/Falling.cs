@@ -11,6 +11,8 @@ public class Falling : MonoBehaviour
 
     bool touched = false;
 
+    public int count;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,15 +25,18 @@ public class Falling : MonoBehaviour
 
         if (transform.position.y < -10)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
+
+
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player")) {
             touched = true;
-            StartCoroutine(Fall());
         }
     }
 
@@ -39,4 +44,5 @@ public class Falling : MonoBehaviour
         yield return new WaitForSeconds(fallDelay);
         GetComponent<Rigidbody2D>().isKinematic = false;
     }
+
 }

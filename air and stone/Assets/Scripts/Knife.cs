@@ -14,6 +14,7 @@ public class Knife : MonoBehaviour
     public float startPoint;
     public float endPoint;
 
+
     private bool flag;
 
     Rigidbody2D rb2d;
