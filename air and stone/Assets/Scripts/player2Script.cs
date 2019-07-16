@@ -48,5 +48,10 @@ public class player2Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground")) {
             isJump = true;
         }
+
+        if (collision.gameObject.CompareTag("Spring"))
+        {
+            rb2d.AddForce(new Vector3(0, jumpForce * 1.5f, 0));
+        }
     }
 }

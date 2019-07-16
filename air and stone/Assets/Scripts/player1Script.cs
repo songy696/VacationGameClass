@@ -53,8 +53,13 @@ public class player1Script : MonoBehaviour
         //this creates the floaty feeling while falling down
         if (rb2d.velocity.y < 0)
         {
-            rb2d.AddForce(new Vector3(0, 90, 0));
-
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                rb2d.AddForce(new Vector3(0, 90, 0));
+            }
+            else {
+                rb2d.AddForce(new Vector3(0, 0, 0));
+            }
             //dont use the physic.gravityscale() because it changes the whole setting of the world, 
             //instead use addforce because it creates the compelling force up against the gravity that makes the slow fall :)
 
@@ -86,6 +91,12 @@ public class player1Script : MonoBehaviour
             
             isJump = true;
         }
+
+        if (collision.gameObject.CompareTag("Spring"))
+        {
+                rb2d.AddForce(new Vector3(0, jumpForce * 1.2f, 0));
+
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -93,5 +104,7 @@ public class player1Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Knife")) {
             gameObject.SetActive(false);
         }
+
+
     }
 }

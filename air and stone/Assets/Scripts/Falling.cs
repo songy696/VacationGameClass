@@ -13,10 +13,13 @@ public class Falling : MonoBehaviour
 
     public int count;
 
+    Vector3 oriPos;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        oriPos = this.transform.position;
     }
 
     // Update is called once per frame
@@ -29,7 +32,10 @@ public class Falling : MonoBehaviour
             //Destroy(gameObject);
         }
 
-
+        if (gameObject.activeInHierarchy == false) {
+            gameObject.SetActive(true);
+            transform.position = oriPos;
+        }
 
     }
 
