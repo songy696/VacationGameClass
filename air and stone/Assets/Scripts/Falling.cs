@@ -10,8 +10,8 @@ public class Falling : MonoBehaviour
     public float fallDelay = 2.0f;
 
     bool touched = false;
-    
-    bool showing;
+
+    public int count;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +25,18 @@ public class Falling : MonoBehaviour
 
         if (transform.position.y < -10)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
+
+
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Player2")) {
+        if (collision.gameObject.CompareTag("Player")) {
             touched = true;
-            StartCoroutine(Fall());
         }
     }
 
@@ -41,24 +44,5 @@ public class Falling : MonoBehaviour
         yield return new WaitForSeconds(fallDelay);
         GetComponent<Rigidbody2D>().isKinematic = false;
     }
-    
-    void Appear(bool show){
-        showing = show;
-    }
-}
 
-class Regenerating : MonoBehaviour
-{
-    public Falling falling;
-    
-    public flaot x;
-    public flaot y;
-    
-    void Start() {
-        Invoke(SpawnObject, 1);
-    }
-    
-    void SpawnObject(){
-        Instantiate(falling.Fall, new Vecotr2(x, y), Quaternion.identity);
-    }
 }
