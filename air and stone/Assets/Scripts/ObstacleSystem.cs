@@ -8,39 +8,15 @@ public class ObstacleSystem : MonoBehaviour
 
     public Knife knife;
 
-    //Falling fallingPlats;
-
-    //public GameObject fallingPrefab;
-
-    //private int count = 3;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (fallingPlats.gameObject.activeInHierarchy == false)
-        //{
-        //    Spawn();
-        //}
-    }
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Player2"))
         {
             isNear = true;
-            //knife.SetActive(true);
             Debug.Log(isNear);
             knife.SetFlag(true);
 
         }
-        //else ()
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -50,17 +26,5 @@ public class ObstacleSystem : MonoBehaviour
         {
             knife.SetFlag(false);
         }
-    }
-
-    public void Spawn ()
-    {
-        //count--;
-        //if (count >= 0)
-        //{
-            //Instantiate(fallPlatPrefab);
-
-           // fallingPrefab.gameObject.SetActive(true);
-            //yield return new WaitForSeconds(.5f);
-       // }
     }
 }

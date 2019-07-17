@@ -34,9 +34,6 @@ public class Knife : MonoBehaviour
         if (flag)
         {
             rb2d.velocity = new Vector2(0, -downSpeed);
-
-
-
         }
         else
         {

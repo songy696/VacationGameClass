@@ -94,7 +94,7 @@ public class player1Script : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Spring"))
         {
-                rb2d.AddForce(new Vector3(0, jumpForce * 1.2f, 0));
+                rb2d.AddForce(new Vector3(0, jumpForce * 1.3f, 0));
 
         }
     }

@@ -23,6 +23,7 @@ public class Collectable : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") || 
             collision.gameObject.CompareTag("Player2")) {
             Wall.SetActive(false);
+            this.gameObject.SetActive(false);
         }
     }
 }

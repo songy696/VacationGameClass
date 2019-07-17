@@ -12,11 +12,15 @@ public class player2Script : MonoBehaviour
 
     bool isJump;
 
+    bool onSpring;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
 
         isJump = false;
+
+        onSpring = false;
     }
 
     // Update is called once per frame
@@ -39,7 +43,13 @@ public class player2Script : MonoBehaviour
             rb2d.AddForce(new Vector3(0, jumpForce, 0));
         }
 
-     
+        if (Input.GetButtonDown("Jump3") && onSpring)
+        {
+            onSpring = false;
+            rb2d.AddForce(new Vector3(0, jumpForce * 2f, 0));
+        }
+
+
 
     }
 
@@ -51,7 +61,15 @@ public class player2Script : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Spring"))
         {
-            rb2d.AddForce(new Vector3(0, jumpForce * 1.5f, 0));
+            onSpring = true;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Knife"))
+        {
+            gameObject.SetActive(false);
         }
     }
 }

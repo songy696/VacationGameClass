@@ -7,29 +7,36 @@ public class Falling : MonoBehaviour
 
     Rigidbody2D rb;
 
-    public float fallDelay = 2.0f;
+    public float fallDelay;
 
-    bool touched = false;
 
-    public int count;
+    //public int count;
 
     Vector3 oriPos;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        rb.isKinematic = true;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         oriPos = this.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
         if (transform.position.y < -10)
         {
             gameObject.SetActive(false);
-            //Destroy(gameObject);
         }
 
         if (gameObject.activeInHierarchy == false) {
@@ -41,14 +48,14 @@ public class Falling : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) {
-            touched = true;
+        if (collision.gameObject.CompareTag("Player") && collision.enabled) {
+            StartCoroutine(Fall());
         }
     }
 
     IEnumerator Fall() {
         yield return new WaitForSeconds(fallDelay);
-        GetComponent<Rigidbody2D>().isKinematic = false;
+        rb.isKinematic = false;
     }
 
 }
