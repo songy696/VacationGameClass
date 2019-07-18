@@ -9,38 +9,57 @@ public class CameraScript : MonoBehaviour
     public Transform target1;
     public Transform target2;
 
+    public player1Script player1;
+    public player2Script player2;
+
     public Camera cameraX;
 
-    private float xThreshold = 3.0f;
-    private float yThreshold = 3.0f;
+    // How many units should we keep from the players
+    private float zoomFactor = 2f;
+    float followTimeDelta = 0.8f;
 
-    private float zoomFactor = 1.5f;
+    float minZoomIn = 7;
+    float maxZoomOut = 15;
+
+    private Rigidbody rb;
 
     public void Start()
     {
-
+        
     }
 
     public void Update()
     {
-        // How many units should we keep from the players
-        float zoomFactor = 1.5f;
-        float followTimeDelta = 0.8f;
 
-        // Midpoint we're after
+
+
+        //Midpoint we're after
         Vector3 midpoint = (target1.position + target2.position) / 2f;
         midpoint.z = -10;
+        //Vector3 midpoint = new Vector3((target1.position.x + target2.position.x) / 2f, (target1.position.y + target2.position.y) / 2f, -10);
+
         // Distance between objects
-        float distance = Vector3.Distance(target1.position, target2.position);
+        float distance = Mathf.Clamp(Vector3.Distance(target1.position, target2.position), minZoomIn, maxZoomOut);
+
+        /*float playerX = mPlayerTransform.position.x;
+            //Vector3 currentPos = transform.position; // you have to use vector3 inorder to function the transform.... if you dont not allowed to fuction it only reading the script
+            Vector3 currentVel = rb.velocity;
+            //currentPos.x = playerX;
+            currentVel.x = playerX - currentVel.x;       // this is using velocity instead of transform
+            //transform.position = currentPos;
+            rb.velocity = currentVel;
+         */
 
         // Move camera a certain distance
         Vector3 cameraDestination = midpoint - cameraX.transform.forward * distance * zoomFactor;
 
+
         // Adjust ortho size if we're using one of those
         if (cameraX.orthographic)
         {
-            // The camera's forward vector is irrelevant, only this size will matter
+                // The camera's forward vector is irrelevant, only this size will matter
             cameraX.orthographicSize = distance;
+            distance = cameraX.orthographicSize;
         }
 
         // You specified to use MoveTowards instead of Slerp

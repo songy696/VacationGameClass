@@ -74,6 +74,7 @@ namespace Cinemachine
         [NoSaveDuringPlay]
         public Transform m_Follow = null;
 
+
         /// <summary>Specifies the LensSettings of this Virtual Camera.
         /// These settings will be transferred to the Unity camera when the vcam is live.</summary>
         [FormerlySerializedAs("m_LensAttributes")]
@@ -109,7 +110,9 @@ namespace Cinemachine
         {
             get { return ResolveFollow(m_Follow); }
             set { m_Follow = value; }
+
         }
+
 
         /// <summary>Called by CinemachineCore at LateUpdate time
         /// so the vcam can position itself and track its targets.  This class will
