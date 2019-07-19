@@ -10,40 +10,88 @@ public class GameController : MonoBehaviour
     public float SpawnXMin;
     public float SpawnXMax;
     public int AstSpawnCount;
-    public int EnemySpawnCount; 
+    public int EnemySpawnCount;
+
+    public int Score;
+
+ 
 
     void Start()
     {
         StartCoroutine(SpawnHazard());
     }
 
+    public void AddScore(int amount) {
+        Score += amount;
+    }
+
     private IEnumerator SpawnHazard()
     {
+        int currentAstCount = AstSpawnCount;
+        int currentEnemyCount = EnemySpawnCount;
+        yield return new WaitForSeconds(3);
+
         while (true) {
 
-            yield return new WaitForSeconds(3);
-
-            for (int i = 0; i < AstSpawnCount; i++)
+            if (currentAstCount > 0 && currentEnemyCount > 0)
             {
+                float randVal = Random.Range(0, 100f);
+                if (randVal < 30) // enemy spawn
+                {
 
-                AsteroidMovement ast = asteroidPool.GetFromPool(Random.Range(0, 3));
+                    EnemyController enemy = enemyPool.GetFromPool();
 
-                ast.transform.position = new Vector3(Random.Range(SpawnXMin, SpawnXMax),
-                                                     0,
-                                                     SpawnZPos);
+                    enemy.transform.position = new Vector3(Random.Range(SpawnXMin, SpawnXMax),
+                                                         0,
+                                                         SpawnZPos);
+                    yield return new WaitForSeconds(.4f);
+                    currentEnemyCount--;
+                }
+                else {  // asteroid spawn
+
+                    AsteroidMovement ast = asteroidPool.GetFromPool(Random.Range(0, 3));
+
+                    ast.transform.position = new Vector3(Random.Range(SpawnXMin, SpawnXMax),
+                                                         0,
+                                                         SpawnZPos);
+                    yield return new WaitForSeconds(.4f);
+                    currentAstCount--;
+                }
             }
-
-            for(int i = 0; i < EnemySpawnCount;  i++)
+            else if (currentAstCount > 0)
             {
+                for (int i = 0; i < currentAstCount; i++)
+                {
 
-                EnemyController enemy = enemyPool.GetFromPool();
+                    AsteroidMovement ast = asteroidPool.GetFromPool(Random.Range(0, 3));
 
-                enemy.transform.position = new Vector3(Random.Range(SpawnXMin, SpawnXMax),
-                                                     0,
-                                                     SpawnZPos);
+                    ast.transform.position = new Vector3(Random.Range(SpawnXMin, SpawnXMax),
+                                                         0,
+                                                         SpawnZPos);
+                    yield return new WaitForSeconds(.4f);
+                }
+                currentAstCount = 0;
             }
+            else if (currentEnemyCount > 0)
+            {
+                for (int i = 0; i < currentEnemyCount; i++)
+                {
 
-            yield return new WaitForSeconds(.4f);
+                    EnemyController enemy = enemyPool.GetFromPool();
+
+                    enemy.transform.position = new Vector3(Random.Range(SpawnXMin, SpawnXMax),
+                                                         0,
+                                                         SpawnZPos);
+                    yield return new WaitForSeconds(.4f);
+                }
+                currentEnemyCount = 0;
+            }
+            else
+            {
+                currentAstCount = AstSpawnCount;
+                currentEnemyCount = EnemySpawnCount;
+                yield return new WaitForSeconds(3);
+            }
         }
     }
 }

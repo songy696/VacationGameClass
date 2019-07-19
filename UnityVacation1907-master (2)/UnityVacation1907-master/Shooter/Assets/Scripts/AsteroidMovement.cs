@@ -9,11 +9,20 @@ public class AsteroidMovement : MonoBehaviour
 
     public float Speed = 5;
 
+    private EffectPool effect;
+
+    private GameController gameController;
+
     //should use awake because onenable works before start therefore it should be before
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = Vector3.back * Speed;
+        GameObject effectObj = GameObject.FindGameObjectWithTag("EffectPool");
+        effect = effectObj.GetComponent<EffectPool>();
+
+        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
+        gameController = controller.GetComponent<GameController>();
     }
 
     //this works like a switch that it works when the objact is appeared
@@ -34,7 +43,12 @@ public class AsteroidMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Bolt") || 
             other.gameObject.CompareTag("Player")) {
 
-            
+            //effect
+            Timer newEffect = effect.GetFromPool((int)eEffectType.AsteroidExp);
+            newEffect.transform.position = transform.position;
+
+            gameController.AddScore(1);
+
 
             other.gameObject.SetActive(false);
             gameObject.SetActive(false);

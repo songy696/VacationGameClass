@@ -20,12 +20,16 @@ public class Player : MonoBehaviour
     public float FireRate;
     private float currentFireTimer;
 
+    private EffectPool effect;
+
 
     // Start is called before the first frame update
     void Start()
     {
         currentFireTimer = 0;
         mRB = GetComponent<Rigidbody>();
+        GameObject effectObject = GameObject.FindGameObjectWithTag("EffectPool");
+        effect = effectObject.GetComponent<EffectPool>();
     }
 
     // Update is called once per frame
@@ -56,7 +60,9 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-
+            //effect
+            Timer newEffect = effect.GetFromPool((int)eEffectType.PlayerExp);
+            newEffect.transform.position = transform.position;
 
 
             gameObject.SetActive(false);

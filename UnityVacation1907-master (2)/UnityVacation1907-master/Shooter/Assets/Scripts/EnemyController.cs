@@ -13,13 +13,16 @@ public class EnemyController : MonoBehaviour
 
     public float speed;
 
+    private EffectPool effect;
+
     //public float Delay = 0.5f;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = Vector3.back * speed;
-
+        GameObject effectObject = GameObject.FindGameObjectWithTag("EffectPool");
+        effect = effectObject.GetComponent<EffectPool>();
     }
 
     private void OnEnable()
@@ -27,7 +30,18 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(AutoFire());
         //like getcomponenet dotn use too much because it becomes extremely heavy
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        mPlayerTransform = player.transform;
+
+        //this is not a recommended method to solve the problem of missing finding game objects but works //mPlayerTransform = null;
+        //instead putting as null, put it as enemy's transform
+        //other method is to create the dummy target = which could be enemy themselves = which means they will not move and stay the same
+        if (player != null)
+        {
+            mPlayerTransform = player.transform;
+        }
+        else {
+            mPlayerTransform = transform;
+        }
+
 
         StartCoroutine(SideMovement());
     }
@@ -47,16 +61,22 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator SideMovement() {
         while (true) {
-            float playerX = mPlayerTransform.position.x;
-            //Vector3 currentPos = transform.position; // you have to use vector3 inorder to function the transform.... if you dont not allowed to fuction it only reading the script
-            Vector3 currentVel = rb.velocity;
-            //currentPos.x = playerX;
-            currentVel.x = playerX - currentVel.x;       // this is using velocity instead of transform
-            //transform.position = currentPos;
-            rb.velocity = currentVel;
 
 
+            //this is not a recommended method to solve the problem of missing finding game objects but works - this has to be checked inorder to function the finding player
+            //if (mPlayerTransform !=null) {
 
+
+                float playerX = mPlayerTransform.position.x;
+                //Vector3 currentPos = transform.position; // you have to use vector3 inorder to function the transform.... if you dont not allowed to fuction it only reading the script
+                Vector3 currentVel = rb.velocity;
+                //currentPos.x = playerX;
+                currentVel.x = playerX - currentVel.x;       // this is using velocity instead of transform
+                                                             //transform.position = currentPos;
+                rb.velocity = currentVel;
+
+
+            //}
             yield return new WaitForFixedUpdate();  // this is similar to yield return null; this means wait till other object spawns
             
         }
@@ -67,15 +87,13 @@ public class EnemyController : MonoBehaviour
         if (other.gameObject.CompareTag("Bolt") ||
             other.gameObject.CompareTag("Player"))
         {
-
-
+            //effect
+            Timer newEffect = effect.GetFromPool((int)eEffectType.EnemyExp);
+            newEffect.transform.position = transform.position;
 
             other.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
 
-        //if (other.gameObject.CompareTag("Player")) {
-
-        //}
     }
 }
