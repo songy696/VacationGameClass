@@ -60,13 +60,25 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            //effect
-            Timer newEffect = effect.GetFromPool((int)eEffectType.PlayerExp);
-            newEffect.transform.position = transform.position;
+            //if you put in here it gives you a bug that effect does not work
+            ////effect
+            //Timer newEffect = effect.GetFromPool((int)eEffectType.PlayerExp);
+            //newEffect.transform.position = transform.position;
 
+            //sound
+
+            //UI
 
             gameObject.SetActive(false);
             Debug.Log("Game Over");
         }
+    }
+
+    private void OnDisable()
+    {
+        //effect
+        Timer newEffect = effect.GetFromPool((int)eEffectType.PlayerExp);
+        newEffect.transform.position = transform.position;
+        Debug.Log("Game Over");
     }
 }

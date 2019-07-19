@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour
 
     private EffectPool effect;
 
+    private GameController gameController;
+
     //public float Delay = 0.5f;
 
     private void Awake()
@@ -23,6 +25,9 @@ public class EnemyController : MonoBehaviour
         rb.velocity = Vector3.back * speed;
         GameObject effectObject = GameObject.FindGameObjectWithTag("EffectPool");
         effect = effectObject.GetComponent<EffectPool>();
+
+        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
+        gameController = controller.GetComponent<GameController>();
     }
 
     private void OnEnable()
@@ -44,6 +49,8 @@ public class EnemyController : MonoBehaviour
 
 
         StartCoroutine(SideMovement());
+
+       
     }
 
     private IEnumerator AutoFire() {
@@ -90,6 +97,8 @@ public class EnemyController : MonoBehaviour
             //effect
             Timer newEffect = effect.GetFromPool((int)eEffectType.EnemyExp);
             newEffect.transform.position = transform.position;
+
+            gameController.AddScore(1);
 
             other.gameObject.SetActive(false);
             gameObject.SetActive(false);
