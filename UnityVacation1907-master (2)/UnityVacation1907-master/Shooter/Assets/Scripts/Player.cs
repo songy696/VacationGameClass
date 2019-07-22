@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     public Transform BoltPos;
     public BoltPool boltPool;
+    public GameController gameController;
 
     public float Speed;
     public float Tilt;
@@ -22,6 +23,8 @@ public class Player : MonoBehaviour
 
     private EffectPool effect;
 
+    private SoundController soundController;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,8 @@ public class Player : MonoBehaviour
         mRB = GetComponent<Rigidbody>();
         GameObject effectObject = GameObject.FindGameObjectWithTag("EffectPool");
         effect = effectObject.GetComponent<EffectPool>();
+
+        soundController = gameController.GetSoundController();
     }
 
     // Update is called once per frame
@@ -53,6 +58,8 @@ public class Player : MonoBehaviour
             Bolt newBolt = boltPool.GetFromPool();
             newBolt.transform.position = BoltPos.position;
             currentFireTimer = FireRate;
+            //Sound
+            soundController.PlayEffectSound((int)eEffectSoundType.FirePlayer);
         }
     }
 
@@ -65,12 +72,10 @@ public class Player : MonoBehaviour
             //Timer newEffect = effect.GetFromPool((int)eEffectType.PlayerExp);
             //newEffect.transform.position = transform.position;
 
-            //sound
-
-            //UI
 
             gameObject.SetActive(false);
-            Debug.Log("Game Over");
+
+
         }
     }
 
@@ -79,6 +84,8 @@ public class Player : MonoBehaviour
         //effect
         Timer newEffect = effect.GetFromPool((int)eEffectType.PlayerExp);
         newEffect.transform.position = transform.position;
-        Debug.Log("Game Over");
+        //sound
+        soundController.PlayEffectSound((int)eEffectSoundType.ExpPlayer);
+        gameController.GameOver();
     }
 }

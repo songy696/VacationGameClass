@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     private EffectPool effect;
 
     private GameController gameController;
+    private SoundController soundController;
 
     //public float Delay = 0.5f;
 
@@ -28,6 +29,8 @@ public class EnemyController : MonoBehaviour
 
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         gameController = controller.GetComponent<GameController>();
+
+        soundController = gameController.GetSoundController();
     }
 
     private void OnEnable()
@@ -54,10 +57,11 @@ public class EnemyController : MonoBehaviour
     }
 
     private IEnumerator AutoFire() {
-        while (true) {      //the reseaon why while function used is because it wants to function the insided script to work infinitly //not only once
+        while (true) {      //while function used because it wants to function the insided script to work infinitly //IEumerator functions only once
             yield return new WaitForSeconds(Random.Range(0.7f, 1.2f));
             Bolt bolt = mPool.GetFromPool();
             bolt.transform.position = BoltPos.position;
+            soundController.PlayEffectSound((int)eEffectSoundType.FireEnemy);
         }
     }
 
@@ -97,6 +101,9 @@ public class EnemyController : MonoBehaviour
             //effect
             Timer newEffect = effect.GetFromPool((int)eEffectType.EnemyExp);
             newEffect.transform.position = transform.position;
+
+            //sound
+            soundController.PlayEffectSound((int)eEffectSoundType.ExpEnemy);
 
             gameController.AddScore(1);
 

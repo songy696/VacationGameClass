@@ -12,6 +12,7 @@ public class AsteroidMovement : MonoBehaviour
     private EffectPool effect;
 
     private GameController gameController;
+    private SoundController soundController;
 
     //should use awake because onenable works before start therefore it should be before
     private void Awake()
@@ -23,6 +24,8 @@ public class AsteroidMovement : MonoBehaviour
 
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         gameController = controller.GetComponent<GameController>();
+
+        soundController = gameController.GetSoundController();
     }
 
     //this works like a switch that it works when the objact is appeared
@@ -46,6 +49,9 @@ public class AsteroidMovement : MonoBehaviour
             //effect
             Timer newEffect = effect.GetFromPool((int)eEffectType.AsteroidExp);
             newEffect.transform.position = transform.position;
+
+            //Sound
+            soundController.PlayEffectSound((int)eEffectSoundType.ExpAst);
 
             gameController.AddScore(1);
 

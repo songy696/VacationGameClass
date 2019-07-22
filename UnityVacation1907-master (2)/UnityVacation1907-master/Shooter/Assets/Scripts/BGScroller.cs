@@ -6,20 +6,15 @@ public class BGScroller : MonoBehaviour
 {
 
     private Rigidbody rb;
-
-
-    public float Speed;
     bool isTouched;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.back * Speed;
     }
 
     public void SetSpeed(float inputSpeed) {
-        Speed = inputSpeed;
-        rb.velocity = Vector3.back * Speed;
+        rb.velocity = Vector3.back * inputSpeed;
     }
 
 
