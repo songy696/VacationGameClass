@@ -5,76 +5,92 @@ using UnityEngine.AI;
 
 public class enemyScript : MonoBehaviour
 {
+    public Transform[] PatrolPoints;
+    int stopSpots;
+    private Transform targetPos;
+    private Transform targetPos1;
 
-    public  Transform[] PatrolPoints;
-    public Transform enemy;
-    private Transform playerPos;
-    public float enemySpeed;
+    public float enemyChaseSpeed;
+    public float enemyPatrolSpeed;
 
-    private int destPoint = 0;
-    public float patrolSpeed;
-    int targetSpots;
-    float distToSpot = 0.02f;
+    public float chaseDist;
+    private bool isPaused;
 
-    int Round;
-
+    float distToSpot = 0.2f;
     private float waitTime;
+    private float startWait;
 
     //private NavMeshAgent agent;
 
-    Vector3 currentPosition;
 
     void Start()
     {
-        targetSpots = 0;
+        targetPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        targetPos1 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Transform>();
 
-        waitTime = Random.Range(1f,3f);
+        //setting the intial spot as the first spot
+        stopSpots = 0;
+        startWait = Random.Range(0.1f, 2f);
+        waitTime = startWait;
 
-        //StartCoroutine(TrailEnemies());
-        playerPos = GameObject.FindGameObjectWithTag("Player2").transform;
-        //agent = GetComponent<NavMeshAgent>();
-        //agent.autoBraking = false;
+        //repeating the wait time 
+        //InvokeRepeating("StopPatrol", 0, Random.Range(3f, 6f));
 
     }
+
+    //void StopPatrol() {
+    //    isPaused = !isPaused;
+    //}
 
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, playerPos.position);
-
-        if (distance <= 5)
+        //if (!isPaused)
+        //{
+        //chasing the player
+        if (Vector2.Distance(transform.position, targetPos.position) < chaseDist)
         {
-            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, enemySpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(new Vector3(transform.position.x, transform.position.y), 
+                                                     new Vector3(targetPos.position.x, transform.position.y), 
+                                                     enemyChaseSpeed * Time.deltaTime);
         }
-        //else {
-        //    Patrol();
-        //}
+        else if (Vector2.Distance(transform.position, targetPos1.position) < chaseDist)
+        {
+            transform.position = Vector2.MoveTowards(new Vector3(transform.position.x, transform.position.y),
+                                                     new Vector3(targetPos1.position.x, transform.position.y),
+                                                     enemyChaseSpeed * Time.deltaTime);
+        }
 
-        
-    }
+        else
+        {
+            //patrol
+            transform.position = Vector2.MoveTowards(transform.position, 
+                                                     PatrolPoints[stopSpots].position, 
+                                                     enemyPatrolSpeed * Time.deltaTime);
 
-    void Patrol()
-    {
-        //// Returns if no points have been set up
-        //if (PatrolPoints.Length == 0)
-        //    return;
+            //Wait in between
+            if (Vector2.Distance(transform.position, PatrolPoints[stopSpots].position) < distToSpot)
+            {
+                if (waitTime <= 0)
+                {
+                    stopSpots++;
+                    if (stopSpots > PatrolPoints.Length - 1)
+                    {
+                        stopSpots = 0;
+                        //flip the sprite
+                    }
+                    else
+                    {
+                        //flip
+                    }
+                    waitTime = startWait;
+                }
+                else
+                {
+                    waitTime -= Time.deltaTime;
+                }
 
-        //// Set the agent to go to the currently selected destination.
-        //agent.destination = PatrolPoints[destPoint].position;
+            }
+        }
 
-        //// Choose the next point in the array as the destination,
-        //// cycling to the start if necessary.
-        //destPoint = (destPoint + 1) % PatrolPoints.Length;
-
-
-
-        //if (Vector2.Distance(transform.position, PatrolPoints[targetSpots].position) < distToSpot){
-        //        Round++;
-        //        targetSpots++;
-
-        //        if (targetSpots > PatrolPoints.Length - 1)
-        //        {
-        //            targetSpots = 0;
-        //        }
-        //}
     }
 }
