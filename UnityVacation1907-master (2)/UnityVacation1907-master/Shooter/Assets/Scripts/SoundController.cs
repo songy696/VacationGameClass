@@ -18,7 +18,6 @@ public class SoundController : MonoBehaviour
     public AudioSource BGMSource;
     public AudioSource EffectSource;
 
-    public 
 
     // Start is called before the first frame update
     void Start()

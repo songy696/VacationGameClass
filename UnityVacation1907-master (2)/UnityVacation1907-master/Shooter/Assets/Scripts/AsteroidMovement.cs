@@ -41,23 +41,37 @@ public class AsteroidMovement : MonoBehaviour
         
     }
 
+    public void EnterBomb(float damage) {
+        Hit();
+    }
+
+    private void Hit() {
+        gameController.AddScore(1);
+        Timer newEffect = effect.GetFromPool((int)eEffectType.AsteroidExp);
+        newEffect.transform.position = transform.position;
+        soundController.PlayEffectSound((int)eEffectSoundType.ExpAst);
+        gameObject.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bolt") || 
             other.gameObject.CompareTag("Player")) {
 
             //effect
-            Timer newEffect = effect.GetFromPool((int)eEffectType.AsteroidExp);
-            newEffect.transform.position = transform.position;
+            //Timer newEffect = effect.GetFromPool((int)eEffectType.AsteroidExp);
+            //newEffect.transform.position = transform.position;
 
             //Sound
-            soundController.PlayEffectSound((int)eEffectSoundType.ExpAst);
+            //soundController.PlayEffectSound((int)eEffectSoundType.ExpAst);
 
-            gameController.AddScore(1);
+            //score
+            //gameController.AddScore(1);
 
+            Hit();
 
             other.gameObject.SetActive(false);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 

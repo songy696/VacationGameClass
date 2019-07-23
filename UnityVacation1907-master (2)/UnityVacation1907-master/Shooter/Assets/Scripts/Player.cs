@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public BoltPool boltPool;
     public GameController gameController;
 
+    public BombScript bomb;
+
     public float Speed;
     public float Tilt;
 
@@ -21,6 +23,10 @@ public class Player : MonoBehaviour
     public float FireRate;
     private float currentFireTimer;
 
+    public GameObject ChargingObj;
+    public float ChargeMaxValue;
+    private float currentChargeValue;
+
     private EffectPool effect;
 
     private SoundController soundController;
@@ -29,12 +35,15 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         currentFireTimer = 0;
         mRB = GetComponent<Rigidbody>();
         GameObject effectObject = GameObject.FindGameObjectWithTag("EffectPool");
         effect = effectObject.GetComponent<EffectPool>();
 
         soundController = gameController.GetSoundController();
+
+        currentChargeValue = 0;
     }
 
     // Update is called once per frame
@@ -53,7 +62,26 @@ public class Player : MonoBehaviour
 
         currentFireTimer = currentFireTimer - Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && currentFireTimer <= 0)
+        currentChargeValue = 0;
+
+        if (Input.GetButton("Fire3"))
+        {
+            ChargingObj.SetActive(true);
+            currentChargeValue += Time.deltaTime;
+        }
+        else if (Input.GetButtonUp("Fire3"))
+        {
+            if (currentChargeValue >= ChargeMaxValue) {
+                //shoot 20
+                //Debug.Log("Fire!!!!!!!!!!!!!!");
+                ChargingObj.transform.position = BoltPos.position;
+                ChargingObj.gameObject.SetActive(true);
+
+            }
+            currentChargeValue = 0;
+            ChargingObj.SetActive(false);
+        }
+        else if (Input.GetButton("Fire1") && currentFireTimer <= 0)
         {
             Bolt newBolt = boltPool.GetFromPool();
             newBolt.transform.position = BoltPos.position;
@@ -61,7 +89,25 @@ public class Player : MonoBehaviour
             //Sound
             soundController.PlayEffectSound((int)eEffectSoundType.FirePlayer);
         }
+
+        if (Input.GetButton("Fire2") && !bomb.gameObject.activeInHierarchy)
+        {
+            bomb.transform.position = BoltPos.position;
+            bomb.gameObject.SetActive(true);
+        }
     }
+
+    private IEnumerator ChargingFire(int boltCount) {
+        int count = boltCount;
+        while (count > 0) {
+            Bolt newBolt = boltPool.GetFromPool();
+            newBolt.transform.position = BoltPos.position;
+            soundController.PlayEffectSound((int)eEffectSoundType.FirePlayer);
+            count--;
+            yield return new WaitForSeconds(1);
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

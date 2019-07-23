@@ -20,6 +20,9 @@ public class EnemyController : MonoBehaviour
 
     //public float Delay = 0.5f;
 
+    public int MaxHP;
+    private int CurrentHP;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,6 +38,8 @@ public class EnemyController : MonoBehaviour
 
     private void OnEnable()
     {
+        CurrentHP = MaxHP;
+
         StartCoroutine(AutoFire());
         //like getcomponenet dotn use too much because it becomes extremely heavy
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -93,22 +98,47 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void EnterBomb(int mdamage)
+    {
+        Hit(mdamage);
+    }
+
+    private void Hit(int damage)
+    {
+        CurrentHP -= damage;
+
+        if (CurrentHP <= 0) {
+        //effect
+        Timer newEffect = effect.GetFromPool((int)eEffectType.EnemyExp);
+        newEffect.transform.position = transform.position;
+
+        //sound
+        soundController.PlayEffectSound((int)eEffectSoundType.ExpEnemy);
+
+        gameController.AddScore(1);
+
+        gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bolt") ||
             other.gameObject.CompareTag("Player"))
         {
-            //effect
-            Timer newEffect = effect.GetFromPool((int)eEffectType.EnemyExp);
-            newEffect.transform.position = transform.position;
+            ////effect
+            //Timer newEffect = effect.GetFromPool((int)eEffectType.EnemyExp);
+            //newEffect.transform.position = transform.position;
 
-            //sound
-            soundController.PlayEffectSound((int)eEffectSoundType.ExpEnemy);
+            ////sound
+            //soundController.PlayEffectSound((int)eEffectSoundType.ExpEnemy);
 
-            gameController.AddScore(1);
+            //gameController.AddScore(1);
+
+            Hit(1);
 
             other.gameObject.SetActive(false);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
 
     }
