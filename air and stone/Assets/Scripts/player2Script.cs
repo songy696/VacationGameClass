@@ -71,5 +71,10 @@ public class player2Script : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

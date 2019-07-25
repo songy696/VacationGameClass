@@ -105,6 +105,8 @@ public class player1Script : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-
+        if (collision.gameObject.CompareTag("Bullet")) {
+            gameObject.SetActive(false);
+        }
     }
 }

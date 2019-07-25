@@ -9,6 +9,7 @@ TagManager:
   - Knife
   - Spring
   - TrailPoints
+  - Bullet
   layers:
   - Default
   - TransparentFX
