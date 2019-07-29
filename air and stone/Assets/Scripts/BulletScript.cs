@@ -7,15 +7,19 @@ public class BulletScript : MonoBehaviour
 
     private Rigidbody2D rb2d;
 
-    public float Speed;
+    public float Hspeed;
+    public float Vspeed;
 
-    // Start is called before the first frame update
-
-    void Start()
-
+    public void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        rb2d.velocity = transform.TransformDirection(Random.Range(-2f,2f), Random.Range(1f, 2f), 0) * Speed;
+    }
+
+    private void OnEnable()
+    {
+        //rb2d.velocity = Vector2.zero;
+        rb2d.AddForce(new Vector2(Random.Range(-25f, 25f) * Hspeed, 
+                                  Random.Range(50f, 100f) * Vspeed));
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

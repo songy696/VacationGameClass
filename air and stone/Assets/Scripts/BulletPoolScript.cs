@@ -15,11 +15,6 @@ public class BulletPoolScript : MonoBehaviour
         Pool = new List<BulletScript>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public BulletScript GetFromBulletPool() {
         for (int i = 0; i < Pool.Count; i++)
