@@ -132,18 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d604818da37c04095ea148e951c6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &213944050 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6459545950030094993, guid: 69fbf1674db99824eaaf3d0b9d17b435,
-    type: 3}
-  m_PrefabInstance: {fileID: 1524562136}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cc50aa0e849b354996e46cafcbe85d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &276259476
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,8 +232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target1: {fileID: 611477284}
   target2: {fileID: 1158375779}
-  player1: {fileID: 515389284}
-  player2: {fileID: 213944050}
+  player1: {fileID: 1830791735}
+  player2: {fileID: 800371379}
   cameraX: {fileID: 276259478}
 --- !u!114 &276259481
 MonoBehaviour:
@@ -779,18 +767,6 @@ Transform:
   m_Father: {fileID: 593170461}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &515389284 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5424386231516837842, guid: 5ca5edec67c9a7d4d8888806b2d93380,
-    type: 3}
-  m_PrefabInstance: {fileID: 795051814}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c5988f08239b1c4eab02d32a68c5dc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &593170460
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +964,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ca5edec67c9a7d4d8888806b2d93380, type: 3}
+--- !u!1 &800371379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6459545950030094992, guid: 69fbf1674db99824eaaf3d0b9d17b435,
+    type: 3}
+  m_PrefabInstance: {fileID: 1524562136}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &843972084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,7 +1480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6882e192e42e6a439c4c554647ebcee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTrails: {fileID: 0}
 --- !u!114 &1319561284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1883,6 +1864,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1830791735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5424386231516837849, guid: 5ca5edec67c9a7d4d8888806b2d93380,
+    type: 3}
+  m_PrefabInstance: {fileID: 795051814}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1999939250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,6 +1967,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2517957407875951460, guid: 1e96913d1d050784fbd9c2865d83b2ef,
+        type: 3}
+      propertyPath: fallDelay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2517957407875951461, guid: 1e96913d1d050784fbd9c2865d83b2ef,
         type: 3}
       propertyPath: m_BodyType
@@ -1993,11 +1985,6 @@ PrefabInstance:
     - target: {fileID: 2517957407875951461, guid: 1e96913d1d050784fbd9c2865d83b2ef,
         type: 3}
       propertyPath: m_GravityScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2517957407875951460, guid: 1e96913d1d050784fbd9c2865d83b2ef,
-        type: 3}
-      propertyPath: fallDelay
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
