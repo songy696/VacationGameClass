@@ -5,33 +5,64 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Animator mAnim;
-    public int WalkHash;
-    // Start is called before the first frame update
+
+    private Rigidbody2D rb2d;
+    public float speed;
+    public float jumpForce;
+    bool isJump;
+
     void Start()
     {
         mAnim = GetComponent<Animator>();
-        WalkHash = Animator.StringToHash("IsWalk");
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
+        Vector2 move = new Vector2(horizontal * speed, rb2d.velocity.y);
 
+        //................................................................................Horizontal Movement
         if (horizontal > 0)
         {
+            rb2d.velocity = move;
             transform.rotation = Quaternion.Euler(0, 0, 0);
-            mAnim.SetBool(WalkHash, true);
+            mAnim.SetBool(AnimationHash.Walk, true);
         }
         else if (horizontal < 0)
         {
+            rb2d.velocity = move;
             transform.rotation = Quaternion.Euler(0, 180, 0);
-            mAnim.SetBool(WalkHash, true);
+            mAnim.SetBool(AnimationHash.Walk, true);
         }
         else
         {
-            mAnim.SetBool(WalkHash, false);
+            mAnim.SetBool(AnimationHash.Walk, false);
         }
-        
+
+        //............................................................................................Jump
+        if (Input.GetButtonDown("Jump") && isJump)
+        {
+            isJump = false;
+            rb2d.AddForce(new Vector3(0, jumpForce, 0));
+            //mAnim.SetBool(AnimationHash.Jump, false);
+        }
+
+        //............................................................................................Attack
+        if (Input.GetButtonDown("Fire1"))
+        {
+            mAnim.SetBool(AnimationHash.Melee, true);
+        }
+        if(Input.GetButtonUp("Fire1")) {
+            mAnim.SetBool(AnimationHash.Melee, false);
+        }
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground")) {
+            isJump = true;
+        }
     }
 }
