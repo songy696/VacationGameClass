@@ -14,22 +14,17 @@ public class CameraScript : MonoBehaviour
 
     public Camera cameraX;
 
-    private float xOffset;
-    private float yOffeset;
-
     // How many units should we keep from the players
     private float zoomFactor = 2f;
     float followTimeDelta = 0.8f;
 
     float minZoomIn = 7;
-    float maxZoomOut = 15;
+    float maxZoomOut = 12;
 
     private Rigidbody rb;
 
     public void Start()
     {
-        xOffset = 0.1f;
-        yOffeset = 0.2f;
     }
 
     public void Update()
@@ -58,12 +53,34 @@ public class CameraScript : MonoBehaviour
             Vector3 cameraDestination = midpoint - cameraX.transform.forward * distance * zoomFactor;
 
 
+            //if (cameraX.orthographicSize < 15)
+            //{
+            //    cameraX.orthographicSize += .1f;
+            //}
+            //else if (cameraX.orthographicSize > 7)
+            //{
+            //    cameraX.orthographicSize -= .1f;
+            //}
+
             // Adjust ortho size 
             if (cameraX.orthographic)
             {
                 // The camera's forward vector is irrelevant, only this size will matter
                 cameraX.orthographicSize = distance;
                 distance = cameraX.orthographicSize;
+
+                //if (cameraX.orthographicSize < maxZoomOut)
+                //{
+                //    cameraX.orthographicSize += .01f;
+                //    cameraX.orthographicSize = distance;
+                //    distance = cameraX.orthographicSize;
+                //}
+                //else if (cameraX.orthographicSize > minZoomIn)
+                //{
+                //    cameraX.orthographicSize -= .01f;
+                //    cameraX.orthographicSize = distance;
+                //    distance = cameraX.orthographicSize;
+                //}
             }
 
             // You specified to use MoveTowards instead of Slerp
@@ -76,7 +93,7 @@ public class CameraScript : MonoBehaviour
             }
 
         } else if (player1.gameObject.activeInHierarchy == false && player2.gameObject.activeInHierarchy == true) {
-            cameraX.transform.position = new Vector3(target2.position.x * xOffset, target2.position.y * yOffeset, -10);
+            cameraX.transform.position = new Vector3(target2.position.x, target2.position.y, -10);
             if (cameraX.orthographicSize > 6)
             {
                 cameraX.orthographicSize -= .1f;
@@ -86,7 +103,7 @@ public class CameraScript : MonoBehaviour
         }
         else if (player1.gameObject.activeInHierarchy == true && player2.gameObject.activeInHierarchy == false)
         {
-            cameraX.transform.position = new Vector3(target1.position.x * xOffset, target1.position.y * yOffeset, -10);
+            cameraX.transform.position = new Vector3(target1.position.x, target1.position.y, -10);
             if (cameraX.orthographicSize > 6)
             {
                 cameraX.orthographicSize -= .1f;
