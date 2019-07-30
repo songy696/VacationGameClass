@@ -29,9 +29,12 @@ public class CameraScript : MonoBehaviour
 
     public void Update()
     {
+        CameraRestriction();
+    }
 
-
-        if (player1.gameObject.activeInHierarchy == true && player2.gameObject.activeInHierarchy == true) {
+    public void CameraRestriction() {
+        if (player1.gameObject.activeInHierarchy == true && player2.gameObject.activeInHierarchy == true)
+        {
             //Midpoint we're after
             Vector3 midpoint = (target1.position + target2.position) / 2f;
             midpoint.z = -10;
@@ -92,14 +95,16 @@ public class CameraScript : MonoBehaviour
                 cameraX.transform.position = cameraDestination;
             }
 
-        } else if (player1.gameObject.activeInHierarchy == false && player2.gameObject.activeInHierarchy == true) {
+        }
+        else if (player1.gameObject.activeInHierarchy == false && player2.gameObject.activeInHierarchy == true)
+        {
             cameraX.transform.position = new Vector3(target2.position.x, target2.position.y, -10);
             if (cameraX.orthographicSize > 6)
             {
                 cameraX.orthographicSize -= .1f;
                 cameraX.orthographicSize = Mathf.Clamp(cameraX.orthographicSize, 6, 100);
             }
-            
+
         }
         else if (player1.gameObject.activeInHierarchy == true && player2.gameObject.activeInHierarchy == false)
         {
@@ -110,6 +115,5 @@ public class CameraScript : MonoBehaviour
                 cameraX.orthographicSize = Mathf.Clamp(cameraX.orthographicSize, 6, 100);
             }
         }
-
     }
 }

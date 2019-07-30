@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+// the list what I have to do
+//1. players clamped inside of the camera restriction
+//2. fade in fade out of the players
+//3. animations - players and the intro plays
+//4. try wall jumps
+//5. background drawings and stage designs
+//6. UI of intro instructions what to do
+//7. lighting
+//8. waves for the bullet shooting
+//9. hinge joint
+
 public class player1Script : MonoBehaviour
 {
     public float speed;
-
-    //public LayerMask groundLayer;
-    //public Transform feet;
-    //public Transform groundCheck;
-
     public float jumpForce;
 
     Rigidbody2D rb2d;
@@ -20,15 +27,7 @@ public class player1Script : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-
         isJump = false;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //isJump = Physics2D.OverlapCircle(feet.position, .5f, groundLayer);
     }
 
     void FixedUpdate()
@@ -78,8 +77,6 @@ public class player1Script : MonoBehaviour
             //yield WaitForSecond(0.25);
             speed = 5f;
         }
-
-
 
     }
 
