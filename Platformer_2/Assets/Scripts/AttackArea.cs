@@ -5,18 +5,20 @@ using UnityEngine;
 public class AttackArea : MonoBehaviour
 {
     public string TargetTag;
+    private int Damage;
 
+    public void SetTargetTag(string tag) {
+        TargetTag = tag;
+    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void SetDamage(int dmg) {
+        Damage = dmg;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(TargetTag)){
-            collision.SendMessage("Hit", 1, SendMessageOptions.DontRequireReceiver);
+            collision.SendMessage("Hit", Damage, SendMessageOptions.DontRequireReceiver);
         }
     }
 }
