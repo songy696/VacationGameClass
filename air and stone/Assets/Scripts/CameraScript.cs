@@ -12,6 +12,8 @@ public class CameraScript : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
 
+    public GameObject CameraRestricColliders;
+
     public Camera cameraX;
 
     // How many units should we keep from the players
@@ -25,6 +27,7 @@ public class CameraScript : MonoBehaviour
 
     public void Start()
     {
+        CameraRestricColliders.SetActive(false);
     }
 
     public void Update()
@@ -56,13 +59,13 @@ public class CameraScript : MonoBehaviour
             Vector3 cameraDestination = midpoint - cameraX.transform.forward * distance * zoomFactor;
 
 
-            //if (cameraX.orthographicSize < 15)
+            //if (cameraX.orthographicSize <= maxZoomOut)
             //{
-            //    cameraX.orthographicSize += .1f;
+            //    CameraRestricColliders.SetActive(true);
             //}
-            //else if (cameraX.orthographicSize > 7)
+            //else
             //{
-            //    cameraX.orthographicSize -= .1f;
+            //    CameraRestricColliders.SetActive(false);
             //}
 
             // Adjust ortho size 
@@ -72,18 +75,15 @@ public class CameraScript : MonoBehaviour
                 cameraX.orthographicSize = distance;
                 distance = cameraX.orthographicSize;
 
-                //if (cameraX.orthographicSize < maxZoomOut)
-                //{
-                //    cameraX.orthographicSize += .01f;
-                //    cameraX.orthographicSize = distance;
-                //    distance = cameraX.orthographicSize;
-                //}
-                //else if (cameraX.orthographicSize > minZoomIn)
-                //{
-                //    cameraX.orthographicSize -= .01f;
-                //    cameraX.orthographicSize = distance;
-                //    distance = cameraX.orthographicSize;
-                //}
+                if (cameraX.orthographicSize == maxZoomOut)
+                {
+                    CameraRestricColliders.SetActive(true);
+                }
+                else
+                {
+                    CameraRestricColliders.SetActive(false);
+                }
+
             }
 
             // You specified to use MoveTowards instead of Slerp

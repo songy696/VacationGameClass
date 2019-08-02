@@ -20,6 +20,9 @@ public class enemyScript : MonoBehaviour
     private float waitTime;
     private float startWait;
 
+    public int enemyDamagePoint;
+    public int currentEnemyDamagePoint;
+
     //private NavMeshAgent agent;
 
 
@@ -35,6 +38,8 @@ public class enemyScript : MonoBehaviour
 
         //repeating the wait time 
         //InvokeRepeating("StopPatrol", 0, Random.Range(3f, 6f));
+
+        currentEnemyDamagePoint = 0;
 
     }
 
@@ -91,6 +96,9 @@ public class enemyScript : MonoBehaviour
 
             }
         }
+    }
+
+    void Attacked() {
 
     }
 }

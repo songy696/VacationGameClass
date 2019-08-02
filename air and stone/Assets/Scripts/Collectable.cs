@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    public GameObject Wall;
+    private GameObject Wall;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Wall = GameObject.FindGameObjectWithTag("Wall");
     }
 
     // Update is called once per frame
