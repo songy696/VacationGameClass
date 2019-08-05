@@ -1497,7 +1497,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: c5f845ac4fe8eba4f9dcf6306fd4872b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -2092,6 +2092,8 @@ MonoBehaviour:
   enemyChaseSpeed: 3.5
   enemyPatrolSpeed: 3
   chaseDist: 8.5
+  enemyDamagePoint: 0
+  currentEnemyDamagePoint: 0
 --- !u!4 &1493047892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2517957407875951451, guid: 1e96913d1d050784fbd9c2865d83b2ef,
@@ -2717,7 +2719,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: c5f845ac4fe8eba4f9dcf6306fd4872b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0

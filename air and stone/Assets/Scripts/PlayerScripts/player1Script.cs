@@ -24,10 +24,30 @@ public class player1Script : MonoBehaviour
 
     bool isJump;
 
+    public int level = 3;
+    public int health = 3;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         isJump = false;
+    }
+
+    public void SavePlayer() {
+        SaveSystem.SavePlayer(this);
+    }
+
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        level = data.level;
+        health = data.health;
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.x = data.position[1];
+        position.x = data.position[2];
     }
 
     void FixedUpdate()
